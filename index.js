@@ -11,7 +11,7 @@ dotenv.config({
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://live-chatting-app.netlify.app"],
   },
 });
 
