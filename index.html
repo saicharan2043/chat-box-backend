@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <h1>Chat Application</h1>
+    <input type="text" placeholder="Type..." id="input" />
+    <button id="button">Click Me</button>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      const BtnEl = document.getElementById("button");
+      const inputEl = document.getElementById("input");
+      const ContainerEl = document.createElement("div");
+      document.body.appendChild(ContainerEl);
+      BtnEl.onclick = function () {
+        const inputValue = inputEl.value;
+
+        if (inputValue !== "") {
+          socket.emit("send-massage", { textname: inputValue });
+        }
+      };
+
+      function addChat(massage) {
+        const liEl = document.createElement("li");
+        liEl.textContent = massage;
+        ContainerEl.appendChild(liEl);
+      }
+      socket.on("recive-msg", (massage) => {
+        addChat(massage);
+      });
+    </script>
+  </body>
+</html>
